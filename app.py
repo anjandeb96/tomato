@@ -17,6 +17,9 @@ from PIL import Image, ImageOps
 from google.oauth2 import service_account
 from googleapiclient.discovery import build
 from googleapiclient.http import MediaFileUpload
+from oauth2client.service_account import ServiceAccountCredentials
+from io import BytesIO
+from googleapiclient.http import MediaIoBaseUpload
 
 @st.cache(allow_output_mutation=True)
 def load_model():
@@ -27,17 +30,15 @@ with st.spinner('Model is being loaded..'):
 
 
 
-json_file_path = 'file.json'
-credentials = service_account.Credentials.from_service_account_file(json_file_path, scopes=['https://www.googleapis.com/auth/drive'])
-# Build the Google Drive API client
-drive_service = build('drive', 'v3', credentials=credentials)
 
+SCOPES  = ['https://www.googleapis.com/auth/drive.file']
+SERVICE_ACCOUNT_FILE  = 'file.json'
 
 st.write("<h1 style='text-align: center; background-color: #ebccff; color: #990033;'>Tomato Leaf Diseases Detection</h1>", unsafe_allow_html=True)
 st.write("<h1 style='text-align: center; background-color: #ebccff; color: #5c0099;'>টমেটো পাতার রোগ নির্ণয়</h1>", unsafe_allow_html=True)
 
 
-file = st.file_uploader("Please upload an Tomato leaf image file. / একটি টমেটো পাতার ছবি আপলোড করুন", type=["jpg", "png"])
+file = st.file_uploader("Please upload an Tomato leaf image file. / একটি টমেটো পাতার ছবি আপলোড করুন", type=["jpg", "png", "jpeg"])
 
 
 st.set_option('deprecation.showfileUploaderEncoding', False)
@@ -48,20 +49,20 @@ if file is None:
     st.text("No tomato leaf image is selected\nকোনো টমেটো পাতার ছবি নির্বাচন করা হয়নি")
 else:
 
-    file_metadata = {
-        'name': file.name,
-        'parents': ['1Ht4NHJ3KCgWSvEyNdDpCZYWKkFZM8XWy']  # Replace with the ID of the folder where you want to save the file
-    }
-    media = MediaFileUpload(file, mimetype=file.type)
+    credentials = service_account.Credentials.from_service_account_file(
+        SERVICE_ACCOUNT_FILE, scopes=SCOPES
+    )
+    drive_service = build('drive', 'v3', credentials=credentials)
 
-    # Upload the file
-    uploaded_file = drive_service.files().create(
-        body=file_metadata,
-        media_body=media,
-        fields='id'
+    # Upload the file to Google Drive
+    file_metadata = {'name': file.name, 'parents': ['1ps9JTqK1N1HXVRdmQnLoeKVP1Dam4JuK']}
+    media = MediaIoBaseUpload(BytesIO(file.read()), mimetype=file.type)
+    response = drive_service.files().create(
+        body=file_metadata, media_body=media, fields='id'
     ).execute()
 
 
+  
     image = Image.open(file)
     st.image(image, use_column_width=True)
 
@@ -159,5 +160,6 @@ else:
                                                                  
         st.text("\n\nTo maintain healthy tomato plants : \n1.Provide adequate sunlight, water, and nutrient-rich soil.\n2.Monitor plants regularly for signs of pests, diseases, or nutrient deficiencies.\n3.Prune tomato plants to promote air circulation and remove diseased or damaged foliage.\n4.Practice proper watering techniques, avoiding both under and overwatering.")
         st.text("\n\nসুস্থ টমেটো গাছ বজায় রাখতে :\n১.পর্যাপ্ত সূর্যালোক, জল, এবং পুষ্টি সমৃদ্ধ মাটি প্রদান করুন।\n২.কীটপতঙ্গ, রোগ বা পুষ্টির ঘাটতির লক্ষণগুলির জন্য নিয়মিত গাছগুলি পর্যবেক্ষণ করুন।\n৩.বায়ু সঞ্চালন বাড়াতে এবং রোগাক্রান্ত বা ক্ষতিগ্রস্ত পাতা অপসারণ করতে টমেটো গাছ ছাঁটাই করুন।\n৪.সঠিক জল দেওয়ার কৌশলগুলি অনুশীলন করুন, জলের নীচে এবং অতিরিক্ত জল উভয়ই এড়িয়ে চলুন।\n")
+      
 
 
