@@ -1,3 +1,4 @@
+%%writefile app.py
 import streamlit as st
 import tensorflow as tf
 import streamlit as st
@@ -57,6 +58,10 @@ file = st.file_uploader("Please upload an Tomato leaf image file. / একটি
 
 st.set_option('deprecation.showfileUploaderEncoding', False)
 
+reference_link = "https://www.usda.gov/"
+reference_text = "Tomato Diseases Solutions (English)"
+reference_link_bn = "http://www.bari.gov.bd/"
+reference_text_bn = "Tomato Diseases Solutions (Bangla)"
 
 
 if file is None:
@@ -89,7 +94,7 @@ else:
 
     # Map the index to the corresponding class name
     pred_class = class_names[pred_index]
-    
+
     voice_button_style = """
     height: 100px;
     width: 300px;
@@ -148,7 +153,9 @@ else:
           audio_file_path_bn = text_to_speech(bangla_text_bacterial_spot, lang='bn')
           st.audio(audio_file_path_bn, format='audio/mp3')
           st.write(f'<style>.css-1q5b6h4 {{ {voice_button_style} }}</style>', unsafe_allow_html=True)
-
+        # Display the reference with the link
+        st.write(f"Reference 1 : [{reference_text}]({reference_link})")
+        st.write(f"Reference 2 : [{reference_text_bn}]({reference_link_bn})")
 
     elif pred_class == 'Tomato___Early_blight':
 
@@ -195,7 +202,9 @@ else:
           audio_file_path_bn = text_to_speech(bangla_text_early_bli, lang='bn')
           st.audio(audio_file_path_bn, format='audio/mp3')
           st.write(f'<style>.css-1q5b6h4 {{ {voice_button_style} }}</style>', unsafe_allow_html=True)
-
+        # Display the reference with the link
+        st.write(f"Reference 1 : [{reference_text}]({reference_link})")
+        st.write(f"Reference 2 : [{reference_text_bn}]({reference_link_bn})")
 
         
 
@@ -246,7 +255,9 @@ else:
           audio_file_path_bn = text_to_speech(bangla_text_late_bli, lang='bn')
           st.audio(audio_file_path_bn, format='audio/mp3')
           st.write(f'<style>.css-1q5b6h4 {{ {voice_button_style} }}</style>', unsafe_allow_html=True)
-
+        # Display the reference with the link
+        st.write(f"Reference 1 : [{reference_text}]({reference_link})")
+        st.write(f"Reference 2 : [{reference_text_bn}]({reference_link_bn})")
         
 
 
@@ -296,7 +307,9 @@ else:
           audio_file_path_bn = text_to_speech(bangla_text_leaf_mold, lang='bn')
           st.audio(audio_file_path_bn, format='audio/mp3')
           st.write(f'<style>.css-1q5b6h4 {{ {voice_button_style} }}</style>', unsafe_allow_html=True)
-
+        # Display the reference with the link
+        st.write(f"Reference 1 : [{reference_text}]({reference_link})")
+        st.write(f"Reference 2 : [{reference_text_bn}]({reference_link_bn})")
 
 
     elif pred_class == 'Tomato___Septoria_leaf_spot':
@@ -345,7 +358,9 @@ else:
           audio_file_path_bn = text_to_speech(bangla_text_septo, lang='bn')
           st.audio(audio_file_path_bn, format='audio/mp3')
           st.write(f'<style>.css-1q5b6h4 {{ {voice_button_style} }}</style>', unsafe_allow_html=True)
-
+        # Display the reference with the link
+        st.write(f"Reference 1 : [{reference_text}]({reference_link})")
+        st.write(f"Reference 2 : [{reference_text_bn}]({reference_link_bn})")
 
 
 
@@ -395,7 +410,9 @@ else:
           audio_file_path_bn = text_to_speech(bangla_text_spider, lang='bn')
           st.audio(audio_file_path_bn, format='audio/mp3')
           st.write(f'<style>.css-1q5b6h4 {{ {voice_button_style} }}</style>', unsafe_allow_html=True)
-
+        # Display the reference with the link
+        st.write(f"Reference 1 : [{reference_text}]({reference_link})")
+        st.write(f"Reference 2 : [{reference_text_bn}]({reference_link_bn})")
        
 
 
@@ -445,7 +462,9 @@ else:
           audio_file_path_bn = text_to_speech(bangla_text_target, lang='bn')
           st.audio(audio_file_path_bn, format='audio/mp3')
           st.write(f'<style>.css-1q5b6h4 {{ {voice_button_style} }}</style>', unsafe_allow_html=True)
-
+        # Display the reference with the link
+        st.write(f"Reference 1 : [{reference_text}]({reference_link})")
+        st.write(f"Reference 2 : [{reference_text_bn}]({reference_link_bn})")
        
 
 
@@ -496,7 +515,9 @@ else:
           audio_file_path_bn = text_to_speech(bangla_text_yellow, lang='bn')
           st.audio(audio_file_path_bn, format='audio/mp3')
           st.write(f'<style>.css-1q5b6h4 {{ {voice_button_style} }}</style>', unsafe_allow_html=True)
-
+        # Display the reference with the link
+        st.write(f"Reference 1 : [{reference_text}]({reference_link})")
+        st.write(f"Reference 2 : [{reference_text_bn}]({reference_link_bn})")
        
 
         
@@ -547,7 +568,9 @@ else:
           audio_file_path_bn = text_to_speech(bangla_text_mos, lang='bn')
           st.audio(audio_file_path_bn, format='audio/mp3')
           st.write(f'<style>.css-1q5b6h4 {{ {voice_button_style} }}</style>', unsafe_allow_html=True)
-
+        # Display the reference with the link
+        st.write(f"Reference 1 : [{reference_text}]({reference_link})")
+        st.write(f"Reference 2 : [{reference_text_bn}]({reference_link_bn})")
        
         
 
@@ -598,16 +621,12 @@ else:
           audio_file_path_bn = text_to_speech(bangla_text_hel, lang='bn')
           st.audio(audio_file_path_bn, format='audio/mp3')
           st.write(f'<style>.css-1q5b6h4 {{ {voice_button_style} }}</style>', unsafe_allow_html=True)
-
+        # Display the reference with the link
+        st.write(f"Reference 1 : [{reference_text}]({reference_link})")
+        st.write(f"Reference 2 : [{reference_text_bn}]({reference_link_bn})")
        
 
 
 
-reference_link = "https://www.usda.gov/"
-reference_text = "Tomato Diseases Solutions (English)"
-reference_link_bn = "http://www.bari.gov.bd/"
-reference_text_bn = "Tomato Diseases Solutions (Bangla)"
 
-# Display the reference with the link
-st.write(f"Reference 1 : [{reference_text}]({reference_link})")
-st.write(f"Reference 2 : [{reference_text_bn}]({reference_link_bn})")
+
