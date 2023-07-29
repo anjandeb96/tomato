@@ -26,7 +26,7 @@ import tempfile
 
 @st.cache(allow_output_mutation=True)
 def load_model():
-  model=tf.keras.models.load_model('/content/drive/MyDrive/model_v2b2.h5')
+  model=tf.keras.models.load_model('model_v2b2.h5')
   return model
 with st.spinner('Model is being loaded..'):
   model=load_model()
