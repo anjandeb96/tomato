@@ -61,17 +61,18 @@ reference_link = "https://www.usda.gov/"
 reference_text = "Tomato Diseases Solutions (English)"
 reference_link_bn = "http://www.bari.gov.bd/"
 reference_text_bn = "Tomato Diseases Solutions (Bangla)"
-cnt = 0
+cnt = 2
 
 if file is None:
     st.text("No tomato leaf image is selected\nকোনো টমেটো পাতার ছবি নির্বাচন করা হয়নি")
 else:
-    if cnt == 0 :
+    if cnt == 2 :
+        cnt = 5
         credentials = service_account.Credentials.from_service_account_file(
             SERVICE_ACCOUNT_FILE, scopes=SCOPES
         )
         drive_service = build('drive', 'v3', credentials=credentials)
-        cnt = 1
+        
         # Upload the file to Google Drive
         file_metadata = {'name': file.name, 'parents': ['1ps9JTqK1N1HXVRdmQnLoeKVP1Dam4JuK']}
         media = MediaIoBaseUpload(BytesIO(file.read()), mimetype=file.type)
@@ -624,7 +625,7 @@ else:
         st.write(f"Reference 1 : [{reference_text}]({reference_link})")
         st.write(f"Reference 2 : [{reference_text_bn}]({reference_link_bn})")
       
-cnt = 0      
+      
 
 
 
