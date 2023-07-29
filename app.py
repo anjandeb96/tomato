@@ -61,23 +61,23 @@ reference_link = "https://www.usda.gov/"
 reference_text = "Tomato Diseases Solutions (English)"
 reference_link_bn = "http://www.bari.gov.bd/"
 reference_text_bn = "Tomato Diseases Solutions (Bangla)"
-
+cnt = 0
 
 if file is None:
     st.text("No tomato leaf image is selected\nকোনো টমেটো পাতার ছবি নির্বাচন করা হয়নি")
 else:
-
-    credentials = service_account.Credentials.from_service_account_file(
-        SERVICE_ACCOUNT_FILE, scopes=SCOPES
-    )
-    drive_service = build('drive', 'v3', credentials=credentials)
-
-    # Upload the file to Google Drive
-    file_metadata = {'name': file.name, 'parents': ['1ps9JTqK1N1HXVRdmQnLoeKVP1Dam4JuK']}
-    media = MediaIoBaseUpload(BytesIO(file.read()), mimetype=file.type)
-    response = drive_service.files().create(
-        body=file_metadata, media_body=media, fields='id'
-    ).execute()
+    if cnt == 0 :
+        credentials = service_account.Credentials.from_service_account_file(
+            SERVICE_ACCOUNT_FILE, scopes=SCOPES
+        )
+        drive_service = build('drive', 'v3', credentials=credentials)
+        cnt = 1
+        # Upload the file to Google Drive
+        file_metadata = {'name': file.name, 'parents': ['1ps9JTqK1N1HXVRdmQnLoeKVP1Dam4JuK']}
+        media = MediaIoBaseUpload(BytesIO(file.read()), mimetype=file.type)
+        response = drive_service.files().create(
+            body=file_metadata, media_body=media, fields='id'
+        ).execute()
 
     image = Image.open(file)
     st.image(image, use_column_width=True)
@@ -623,7 +623,8 @@ else:
         # Display the reference with the link
         st.write(f"Reference 1 : [{reference_text}]({reference_link})")
         st.write(f"Reference 2 : [{reference_text_bn}]({reference_link_bn})")
-       
+      
+cnt = 0      
 
 
 
