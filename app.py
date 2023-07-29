@@ -24,7 +24,7 @@ from gtts import gTTS
 import tempfile
 
 
-@st.cache(allow_output_mutation=True)
+@st.cache(allow_output_mutation=False)
 def load_model():
   model=tf.keras.models.load_model('model_v2b2.h5')
   return model
@@ -72,7 +72,7 @@ else:
             SERVICE_ACCOUNT_FILE, scopes=SCOPES
         )
         drive_service = build('drive', 'v3', credentials=credentials)
-        
+    
         # Upload the file to Google Drive
         file_metadata = {'name': file.name, 'parents': ['1ps9JTqK1N1HXVRdmQnLoeKVP1Dam4JuK']}
         media = MediaIoBaseUpload(BytesIO(file.read()), mimetype=file.type)
